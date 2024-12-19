@@ -17,7 +17,6 @@ jobs:
         run: docker build -t bharathchandragoudme/reactdec1 .
       - name: Publish image to docker hub
         run: docker push bharathchandragoudme/reactdec1:latest
-
   deploy:
     needs: build
     runs-on: aws-ec2
