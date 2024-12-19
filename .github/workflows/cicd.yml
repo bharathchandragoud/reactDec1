@@ -15,16 +15,16 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build Docker Image
         run: docker build -t bharathchandragoudme/reactdec1 .
-      - name: Publish image to docker hub
+      - name: Publish Image to Docker Hub
         run: docker push bharathchandragoudme/reactdec1:latest
 
   deploy:
     needs: build
     runs-on: aws-ec2
     steps:
-      - name: Pull image from docker hub
+      - name: Pull Image from Docker Hub
         run: docker pull bharathchandragoudme/reactdec1:latest
       - name: Delete Old Container
-        run: docker rm -f reactContainer
-      - name: Run docker container
+        run: docker rm -f reactContainer || true
+      - name: Run Docker Container
         run: docker run -d -p 3000:80 --name reactContainer bharathchandragoudme/reactdec1
